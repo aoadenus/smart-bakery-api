@@ -1,21 +1,31 @@
-# Smart Bakery REST API 🥐
+# 🥐 Smart Bakery REST API
 
-A backend REST API built to demonstrate how a relational database can power real-time business logic — not just store data. This project takes a SQL schema from concept to a fully deployed cloud service, handling inventory management and order processing end-to-end.
+> A backend REST API demonstrating how a relational database powers real-time business logic — from schema design to cloud deployment.
+
+[![Live API Docs](https://img.shields.io/badge/▶_Live_API_Docs-Render_(Swagger_UI)-46E3B7?style=for-the-badge)](https://smart-bakery-api.onrender.com/docs)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/aoadenus/smart-bakery-api)
+
+> ℹ️ Render free tier spins down after inactivity. First load may take ~30 seconds to wake.
 
 ---
 
-## Why I Built This
+## Overview
 
-A lot of database projects stop at the schema. I wanted to go further and show how a well-designed relational database actually connects to a live application — where a customer placing an order automatically triggers inventory updates, validates stock levels, and returns a structured response in real time. That's the kind of systems thinking I'm developing through my coursework in CIS at the University of Houston, and this project is a direct application of it.
+Most database projects stop at the schema. This one goes further. The Smart Bakery API connects a normalized relational database to a live, deployed REST API — where placing an order automatically validates stock, deducts inventory, calculates the total, and logs the transaction in real time.
+
+It was built to demonstrate end-to-end systems thinking: from database design through API development to cloud deployment. Swagger UI is auto-generated at `/docs`, so every endpoint can be tested live without any additional tooling.
 
 ---
 
-## What It Does
+## Features
 
-- **GET /inventory** — Returns all products and current stock levels from the database in JSON format
-- **POST /order** — Accepts an order request, validates stock availability, calculates the total cost, deducts inventory, and logs the transaction
-- **GET /** — API status check / welcome route
-- **Interactive Docs** — Swagger UI auto-generated at `/docs` for live testing without any additional tools
+- `GET /inventory` — Returns all products and current stock levels in JSON format
+- `POST /order` — Validates stock, deducts inventory, calculates cost, and logs the transaction in one operation
+- `GET /` — API health check and welcome route
+- 📄 Interactive Swagger UI documentation auto-generated at `/docs`
+- ✅ Pydantic models for request validation before any data touches the database
+- 🔐 Parameterized SQL queries to prevent injection attacks
+- ☁️ Deployed on Render with `$PORT` environment variable for production hosting
 
 ---
 
@@ -27,74 +37,25 @@ A lot of database projects stop at the schema. I wanted to go further and show h
 | Framework | FastAPI |
 | Database | SQLite3 |
 | Server | Uvicorn |
-| Hosting | Render (cloud deployment) |
-| Docs | Swagger UI (auto-generated) |
+| Validation | Pydantic |
+| API Docs | Swagger UI (auto-generated) |
+| Hosting | Render |
 
 ---
 
-## Skills Demonstrated
+## What I Learned
 
-- **Relational Database Design** — Designed a normalized schema with a `products` table (inventory) and an `orders` table (transaction log), connected via a foreign key relationship
-- **SQL** — Used `CREATE TABLE`, `SELECT`, `INSERT`, `UPDATE` statements with parameterized queries to prevent SQL injection
-- **Backend API Development** — Built RESTful endpoints using FastAPI with proper HTTP methods (GET, POST), status codes, and error handling
-- **Data Validation** — Used Pydantic models to validate incoming request data before it touches the database
-- **Business Logic Implementation** — Automated inventory deduction and stock validation as part of the order workflow
-- **Cloud Deployment** — Deployed to Render with environment-aware configuration (`$PORT`) for production hosting
-- **Version Control** — Managed source code with Git and GitHub, including a `.gitignore` to keep the database file out of version control
-- **API Documentation** — Leveraged Swagger UI for interactive, self-documenting endpoints
+- Designing a normalized relational schema (products + orders) with a foreign key relationship and understanding the tradeoffs
+- How FastAPI's type system and Pydantic integration enforce data contracts before touching the database
+- Writing parameterized SQL queries and why they matter for security
+- Deploying a Python API to a cloud host and handling environment-aware configuration for production vs. local
+- The difference between building a schema and building a system — business logic lives in the API layer, not just the database
 
 ---
 
-## Database Schema
+## Contact
 
-**`products`** — Inventory table
-
-| Column | Type | Notes |
-|---|---|---|
-| product_id | INTEGER | Primary Key, Auto-increment |
-| name | TEXT | Product name |
-| price | REAL | Unit price |
-| stock_quantity | INTEGER | Current inventory count |
-
-**`orders`** — Transaction log
-
-| Column | Type | Notes |
-|---|---|---|
-| order_id | INTEGER | Primary Key, Auto-increment |
-| product_id | INTEGER | Foreign Key → products.product_id |
-| quantity | INTEGER | Units ordered |
-| total_price | REAL | Calculated at time of order |
-
----
-
-## How to Run Locally
-
-**1. Install dependencies**
-```bash
-pip install fastapi uvicorn
-```
-
-**2. Start the server**
-```bash
-uvicorn bakery_api:app --reload
-```
-
-**3. Open the interactive docs**
-
-Navigate to `http://127.0.0.1:8000/docs` to test all endpoints in your browser.
-
----
-
-## Live Demo
-
-Deployed on Render — [https://smart-bakery-api.onrender.com/docs](https://smart-bakery-api.onrender.com/docs)
-
-> Note: The free tier spins down after inactivity. First load may take ~30 seconds to wake up.
-
----
-
-## About Me
-
-**Adetutu (Tutu) Adenusi** — Computer Information Systems student at the University of Houston (May 2027), with a focus on enterprise systems, data analytics, and business-oriented technology solutions.
-
-[LinkedIn](https://www.linkedin.com/in/adetutuadenusi) · [GitHub](https://github.com/aoadenus)
+**Adetutu (Tutu) Adenusi**
+📧 aoadenus@cougarnet.uh.edu · 📞 (713) 724-2642
+🔗 [linkedin.com/in/adetutuadenusi](https://www.linkedin.com/in/adetutuadenusi)
+💻 [github.com/aoadenus](https://github.com/aoadenus)
